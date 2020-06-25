@@ -1,2 +1,7 @@
-class Txt
+module Exports
+  module Subtitles
+    class AvidMarkers
+
+    end
+  end
 end

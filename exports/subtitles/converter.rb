@@ -23,10 +23,22 @@ module Exports
 
       private
 
+      # TODO: Need to take care of dynamic paramters for different
+      # subtitle classes. Might need to create some sort of value
+      # object to represent such set of params across all subtitle classes
+
       def subtitle_converter_klass(format)
         klass = "Exports::Subtitles::#{format.classify}".safe_constantize
-        return klass.new(cues: cues) unless format == Exports::Subtitles::Values::Format.srt
+        return klass.new(cues: cues) unless srt?(format) || vtt?(format)
         klass.new(cues: cues,with_bom: with_bom)
+      end
+
+      def srt?(format)
+        format == Exports::Subtitles::Values::Format.srt
+      end
+
+      def vtt?(format)
+        format == Exports::Subtitles::Values::Format.vtt
       end
 
       def cues
